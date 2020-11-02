@@ -1,6 +1,6 @@
 ﻿using System;
 using Audio;
-using PureFunctions;
+using Functionality;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace UserInterface
 {
     [Serializable]
-    public class IntroductionMenu : Menu, IMenu
+    public class IntroductionUserInterface : UserInterface, IUserInterface
     {
         [SerializeField]
         private Button startButton;

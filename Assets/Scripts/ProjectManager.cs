@@ -1,7 +1,8 @@
 ﻿using System.Linq;
+using System.Runtime.InteropServices;
 using Achievements;
 using Audio;
-using PureFunctions;
+using Functionality;
 using Statistics;
 using UnityEngine;
 using UserInterface;
@@ -32,7 +33,7 @@ public class ProjectManager : MonoBehaviour
 
     private static void IncrementOpenAmount()
     {
-        ProjectSettings.TimesGameHasBeenOpened++;
+        ProjectStatistics.TimesGameHasBeenOpened++;
     }
 
     private static void SetActiveCamera()
@@ -87,6 +88,15 @@ public class ProjectManager : MonoBehaviour
 
 public struct ProjectSettings
 {
+    public static float CurrentVolume => VolumeControls.VolumeLevel;
+    
+    public const bool CheatsEnabled = true;
+}
+
+public struct ProjectStatistics
+{
+    public static bool PersistantObjectsInitialisedPreviously = false;
+    
     #region TimesGameHasBeenOpened
     private const string TimesGameHasBeenOpenedKey = "TimesGameHasBeenOpened";
     private static int _timesGameHasBeenOpened;
@@ -107,7 +117,6 @@ public struct ProjectSettings
         }
     }
     #endregion TimesGameHasBeenOpened
-
-    public static float CurrentVolume => VolumeControls.VolumeLevel;
-    public static bool PersistantObjectsInitialisedPreviously = false;
 }
+
+

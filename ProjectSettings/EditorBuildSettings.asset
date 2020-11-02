@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Initialisation.unity
     guid: 965c31d3add8f42f5906a85e03835ba5
   - enabled: 1
-    path: Assets/Scenes/MainGame.unity
-    guid: b379f1cba8a01480abec8897a8064477
+    path: Assets/Scenes/SinglePlayerPoker.unity
+    guid: f2e234599012b4835b0c044344a45199
   m_configObjects: {}

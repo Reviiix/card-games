@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
 using Audio;
+using Functionality.Movement;
 using JetBrains.Annotations;
-using PureFunctions.Movement;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UserInterface
@@ -15,17 +16,17 @@ namespace UserInterface
         private static readonly Color[] PlayButtonColorSwaps = {Color.white, Color.black};
         private const int DefaultMenuMovementSpeed = 7;
         private const float MenuMovementDistanceTolerance = 1f;
-        public static int ScreenDistance => ProjectManager.ReturnScreenWidth() * 2;
-        [SerializeField]
-        private IntroductionMenu introductionMenu;
-        [SerializeField]
-        private InGameMenu inGameMenu;
-        [SerializeField]
-        private PauseMenu pauseMenu;
-        [SerializeField]
-        private GameOverMenu gameOverMenu;
-        [SerializeField]
-        private SettingsMenu settingsMenu;
+        private static int ScreenDistance => ProjectManager.ReturnScreenWidth() * 2;
+        [FormerlySerializedAs("introductionMenu")] [SerializeField]
+        private IntroductionUserInterface introductionUserInterface;
+        [FormerlySerializedAs("inGameMenu")] [SerializeField]
+        private InGameUserInterface inGameUserInterface;
+        [FormerlySerializedAs("pauseMenu")] [SerializeField]
+        private PauseUserInterface pauseUserInterface;
+        [FormerlySerializedAs("gameOverMenu")] [SerializeField]
+        private GameOverUserInterface gameOverUserInterface;
+        [FormerlySerializedAs("settingsMenu")] [SerializeField]
+        private SettingsUserInterface settingsUserInterface;
 
         private void Start()
         {
@@ -43,10 +44,10 @@ namespace UserInterface
 
         private void InitialiseMenus()
         {
-            introductionMenu.Initialise(()=>EnableAllNonPermanentCanvases(false), PlayButtonColorSwaps);
-            gameOverMenu.Initialise(PlayButtonColorSwaps);
-            pauseMenu.Initialise(PauseButtonPressed);
-            settingsMenu.Initialise(()=> EnablePauseButton(), () => EnablePauseButton(false),()=>EnablePauseMenu());
+            introductionUserInterface.Initialise(()=>EnableAllNonPermanentCanvases(false), PlayButtonColorSwaps);
+            gameOverUserInterface.Initialise(PlayButtonColorSwaps);
+            pauseUserInterface.Initialise(PauseButtonPressed);
+            settingsUserInterface.Initialise(()=> EnablePauseButton(), () => EnablePauseButton(false),()=>EnablePauseMenu());
         }
 
         private void ResolveDependencies()
@@ -56,12 +57,12 @@ namespace UserInterface
 
         public void EnableStartMenu()
         {
-            introductionMenu.Enable();
+            introductionUserInterface.Enable();
         }
 
         public void EnableInGameUserInterface(bool state = true)
         {
-            inGameMenu.Enable(state);
+            inGameUserInterface.Enable(state);
         }
 
         private void PauseButtonPressed()
@@ -71,35 +72,35 @@ namespace UserInterface
 
         private void EnablePauseMenu(bool state = true)
         {
-            pauseMenu.Enable(state);
+            pauseUserInterface.Enable(state);
         }
     
         public void EnableGameOverMenu(bool state = true)
         {
-            gameOverMenu.Enable(state);
+            gameOverUserInterface.Enable(state);
         }
     
         public void EnablePauseButton(bool state = true)
         {
-            pauseMenu.EnablePauseButtons(state);
+            pauseUserInterface.EnablePauseButtons(state);
         }
     
         private void EnableAllNonPermanentCanvases(bool state = true)
         {
-            introductionMenu.display.enabled = state;
-            gameOverMenu.display.enabled = state;
-            pauseMenu.display.enabled = state;
-            settingsMenu.display.enabled = state;
+            introductionUserInterface.display.enabled = state;
+            gameOverUserInterface.display.enabled = state;
+            pauseUserInterface.display.enabled = state;
+            settingsUserInterface.display.enabled = state;
         }
 
         public TMP_Text ReturnScoreText()
         {
-            return inGameMenu.scoreText;
+            return inGameUserInterface.scoreText;
         }
     
         public TMP_Text ReturnTimeText()
         {
-            return inGameMenu.timeText;
+            return inGameUserInterface.timeText;
         }
 
         private static void TransformEnterToScreenCentre(Transform transformToMove, Action callBack = null, int speed = DefaultMenuMovementSpeed)
@@ -175,7 +176,7 @@ namespace UserInterface
     }
 
     [Serializable]
-    public abstract class Menu
+    public abstract class UserInterface
     {
         public Canvas display;
         protected static Action DisableAllCanvases;
@@ -183,7 +184,7 @@ namespace UserInterface
         protected Transform popUpMenu;
     }
 
-    public interface IMenu
+    public interface IUserInterface
     { 
         void Enable(bool state = true);
     }

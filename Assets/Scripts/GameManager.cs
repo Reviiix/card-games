@@ -1,23 +1,22 @@
-﻿using Statistics;
+﻿using Poker;
+using Statistics;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public Dealer dealer;
+    public DeckOfCards deck;
+
     private void Awake()
     {
         Instance = this;
         
         //Cleanup after a large start up sequence.
-        Debugging.ClearUnusedAssetsAndCollectGarbage();
+        //Debugging.ClearUnusedAssetsAndCollectGarbage();
     }
 
-    private void Start()
-    {
-        StartGame();
-    }
-    
     [ContextMenu("Increment Score")]
     public void IncrementScore()
     {
@@ -25,7 +24,7 @@ public class GameManager : MonoBehaviour
     }
     
     [ContextMenu("Start Game")]
-    public void StartGame()
+    public void StartGameTimer()
     {
         TimeTracker.StartTimer(ProjectManager.Instance);
     }
