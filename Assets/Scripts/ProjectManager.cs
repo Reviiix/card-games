@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Runtime.InteropServices;
-using Achievements;
 using Audio;
 using Functionality;
 using Statistics;
@@ -14,9 +13,7 @@ public class ProjectManager : MonoBehaviour
     public BaseAudioManager audioManager;
     public UserInterfaceManager userInterface;
     public ObjectPooling globalObjectPools;
-    [SerializeField]
-    private AchievementManager achievementManager;
-    
+
     private void Awake()
     {
         if (Instance != null) return;
@@ -27,8 +24,6 @@ public class ProjectManager : MonoBehaviour
         
         Instance = this;
         Initialise();
-        
-        Debug.Log(AchievementManager.Achievements.Last().Index);
     }
 
     private static void IncrementOpenAmount()
@@ -51,7 +46,6 @@ public class ProjectManager : MonoBehaviour
         
         globalObjectPools.Initialise();
         audioManager.Initialise();
-        achievementManager.Initialise();
         
         //Cleanup after a large start up sequence.
         Debugging.ClearUnusedAssetsAndCollectGarbage();
