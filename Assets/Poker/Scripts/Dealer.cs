@@ -7,11 +7,16 @@ using UnityEngine;
 
 namespace Poker.Scripts
 {
-    public class Dealer : Singleton<Dealer>
+    public class Dealer : Singleton<Dealer>, IDealer
     {
         [SerializeField] private DeckOfCards deck;
         [SerializeField] private Hand[] hands;
-        
+
+        public void Initialise()
+        {
+            deck.Initialise();
+        }
+
         public void DealCards(Action callBack)
         {
             if (!((PokerStateManager)SequentialStateManager.Instance).IsDealState()) throw new Exception("Attempting to deal cards outside of the deal state.");
@@ -54,7 +59,7 @@ namespace Poker.Scripts
             }
         }
 
-        private Card[] TakeCardsFromDeck(int amountOfCards)
+        public Card[] TakeCardsFromDeck(int amountOfCards)
         {
             var cards = new Card[amountOfCards];
             for (var i = 0; i < amountOfCards; i++)
@@ -64,12 +69,17 @@ namespace Poker.Scripts
             return cards;
         }
 
+        public int GetAmountOfCardsInHand(int handIndex)
+        {
+            return hands[handIndex].AmountOfCards;
+        }
+
         public void ReturnCardToDeck(Card card)
         {
             deck.ReturnCardToDeck(card);
         }
 
-        private Card TakeRandomCardFromDeck()
+        public Card TakeRandomCardFromDeck()
         {
             return deck.TakeRandomCard();
         }
@@ -79,19 +89,14 @@ namespace Poker.Scripts
             return deck.TakeSpecificCard(index);
         }
 
-        public int GetAmountOfCardsInDeck()
-        {
-            return deck.AmountOfCards;
-        }
-        
-        public int GetAmountOfCardsInHand(int index)
-        {
-            return hands[index].AmountOfCards;
-        }
-        
         public Sprite GetCardBack()
         {
             return deck.cardBack;
+        }
+
+        public int GetAmountOfCardsInDeck()
+        {
+            return deck.AmountOfCards;
         }
     }
 }

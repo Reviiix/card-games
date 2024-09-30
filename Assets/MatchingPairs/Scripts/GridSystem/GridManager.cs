@@ -7,12 +7,11 @@ using pure_unity_methods;
 using Base.Scripts.StateManagement;
 using MatchingPairs.Scripts.StateManagement;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace MatchingPairs.Scripts.GridSystem
 {
     [ExecuteInEditMode]
-    public class MatchingPairsGridManager : Singleton<MatchingPairsGridManager>
+    public class GridManager : Singleton<GridManager>
     {
         public static Action<GridItem> OnItemClick;
         private bool generatingGrid;
@@ -28,20 +27,6 @@ namespace MatchingPairs.Scripts.GridSystem
         [SerializeField] [Range(1, 4)] public int amountOfRows = 3; //Setting range to preserve readability of cards.
         [SerializeField] [Range(2, 8)] public int amountOfItemsPerRow = 6;
 
-        public IEnumerator Initialise(Action completeCallback)
-        {
-            yield return new WaitUntil(() => !generatingGrid);
-            yield return new WaitUntil(() => DeckOfCards.Instance != null);
-            generatingGrid = true;
-            ResetGrid(()=>CreateGrid(() =>
-            {
-                SetGridItemValues();
-                gridObject = GameObject.FindWithTag(GridTag);
-                generatingGrid = false;
-                completeCallback?.Invoke();
-            }));
-        }
-
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -53,39 +38,37 @@ namespace MatchingPairs.Scripts.GridSystem
             base.OnDisable();
             StateManagement.States.Evaluation.OnEvaluationComplete -= OnEvaluationComplete;
         }
-
-        private void OnEvaluationComplete(bool match)
-        {
-            if (match)
-            {
-                StartCoroutine(selectionOne.RemoveFromPlay());
-                StartCoroutine(selectionTwo.RemoveFromPlay());
-            }
-            else
-            {
-                ((MatchingPairsAudioManager)AudioManager.Instance).PlayFailure();
-                StartCoroutine(selectionOne.ResetCard(false));
-                StartCoroutine(selectionTwo.ResetCard(false));
-            }
-        }
-    
-
-#if UNITY_EDITOR
+        
+        #if UNITY_EDITOR
         private void OnValidate()
         {
-            //generatingGrid = false; //debug tool
-            if (Application.isPlaying)
-            {
-                return;
-            }
+            if (Application.isPlaying) return;
             if (generatingGrid) return;
+            GenerateGrid();
+        }
+        #endif
+        
+        public IEnumerator Initialise(Action completeCallback)
+        {
+            yield return new WaitUntil(() => !generatingGrid);
+            GenerateGrid(()=>
+            {
+                SetGridItemValues();
+                completeCallback();
+            });
+        }
+
+        #region Generate Grid
+                private void GenerateGrid(Action completeCallback = null)
+        {
             generatingGrid = true;
             ResetGrid(()=>CreateGrid(() =>
             {
+                gridObject = GameObject.FindWithTag(GridTag);
                 generatingGrid = false;
+                completeCallback?.Invoke();
             }));
         }
-#endif
 
         private void CreateGrid(Action completeCallback = null)
         {
@@ -147,52 +130,21 @@ namespace MatchingPairs.Scripts.GridSystem
             }
             gridItems.Clear();
         }
+        #endregion Generate Grid
 
-        [ContextMenu(nameof(SetGridItemValues))]
-        public void SetGridItemValues()
+        private void OnEvaluationComplete(bool match)
         {
-            var cardValues = CreateCardList(gridItems.Count);
-            var index = 0;
-            foreach (var card in gridItems)
+            if (match)
             {
-                card.SetValue(cardValues[index]);
-                index++;
+                StartCoroutine(selectionOne.RemoveFromPlay());
+                StartCoroutine(selectionTwo.RemoveFromPlay());
             }
-        }
-
-        /// <summary>
-        /// Create two matching arrays of cards and combine them together.
-        /// This ensures there are always the correct amount of matches
-        /// </summary>
-        private static List<Card> CreateCardList(int amount)
-        {
-            var firstHalf = new List<Card>();
-            var half = amount / 2;
-            for (var i = 0; i < half; i++)
+            else
             {
-                firstHalf.Add(GetUniqueValue());
+                ((MatchingPairsAudioManager)AudioManager.Instance).PlayFailure();
+                StartCoroutine(selectionOne.ResetCard(false));
+                StartCoroutine(selectionTwo.ResetCard(false));
             }
-            var secondHalf = new List<Card>(firstHalf);
-            var fullList = firstHalf.Concat(secondHalf).ToList();
-            return Shuffle(fullList);
-        }
-    
-        private static List<T> Shuffle<T>(List<T> list)
-        {
-            for (var i = 0; i < list.Count; i++)
-            {
-                var temp = list[i];
-                var randomIndex = Random.Range(i, list.Count);
-                list[i] = list[randomIndex];
-                list[randomIndex] = temp;
-            }
-            return list;
-        }
-    
-    
-        private static Card GetUniqueValue()
-        {
-            return DeckOfCards.Instance.TakeRandomCard();
         }
 
         private void OnGridItemClick(GridItem gridItem)
@@ -212,6 +164,16 @@ namespace MatchingPairs.Scripts.GridSystem
             if (((MatchingPairsStateManager)SequentialStateManager.Instance).IsPickTwo())
             {
                 selectionTwo = gridItem;
+            }
+        }
+        
+        private void SetGridItemValues()
+        {
+            var amountOfItems = gridItems.Count;
+            var cardValues = Dealer.Instance.TakeCardsFromDeck(amountOfItems);
+            for (var i = 0; i < amountOfItems; i++)
+            {
+                gridItems[i].SetValue(cardValues[i]);
             }
         }
 

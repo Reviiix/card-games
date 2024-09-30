@@ -16,19 +16,19 @@ namespace MatchingPairs.Scripts
         public void Initialise()
         {
             matches = 0;
-            totalMatches = MatchingPairsGridManager.Instance.GetTotalItems() / 2;
+            totalMatches = GridManager.Instance.GetTotalItems() / 2;
         }
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            MatchingPairsGridManager.OnItemClick += OnStateEnter;
+            GridManager.OnItemClick += OnStateEnter;
         }
     
         protected override void OnDisable()
         {
             base.OnDisable();
-            MatchingPairsGridManager.OnItemClick -= OnStateEnter;
+            GridManager.OnItemClick -= OnStateEnter;
         }
 
         public bool IsMatch()

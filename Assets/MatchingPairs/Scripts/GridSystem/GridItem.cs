@@ -51,7 +51,7 @@ namespace MatchingPairs.Scripts.GridSystem
         {
             if (onClick != null)
             {
-                onClick -= MatchingPairsGridManager.OnItemClick;
+                onClick -= GridManager.OnItemClick;
             }
         }
     
@@ -71,7 +71,7 @@ namespace MatchingPairs.Scripts.GridSystem
                 return;
             }
             Value = value;
-            //SetCardSprite(Value.GetCardSprite()); // Debug tool
+            SetCardSprite(Value.GetCardSprite()); // Debug tool
         }
 
         private void Reveal()
@@ -104,7 +104,7 @@ namespace MatchingPairs.Scripts.GridSystem
             }
             Revealed = false;
             Active = true;
-            display.sprite = DeckOfCards.Instance.cardBack;
+            display.sprite = Dealer.Instance.GetCardBack();
         }
     }
 }

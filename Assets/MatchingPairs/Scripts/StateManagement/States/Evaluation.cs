@@ -1,6 +1,5 @@
 using System;
 using Base.Scripts.StateManagement;
-using UnityEngine;
 
 namespace MatchingPairs.Scripts.StateManagement.States
 {
@@ -10,7 +9,7 @@ namespace MatchingPairs.Scripts.StateManagement.States
     
         public override void OnStateEnter(Action callBack)
         {
-            Debug.Log($"Entering {nameof(Evaluation)} state.");
+            //Debug.Log($"Entering {nameof(Evaluation)} state."); //Debug tool.
             OnEvaluationComplete?.Invoke(Evaluator.Instance.IsMatch());
             callBack();
         }

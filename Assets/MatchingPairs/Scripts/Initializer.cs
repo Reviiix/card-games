@@ -1,4 +1,3 @@
-using Base.Scripts.Cards;
 using pure_unity_methods;
 using MatchingPairs.Scripts.GridSystem;
 using MatchingPairs.Scripts.ScoreSystem;
@@ -19,9 +18,9 @@ namespace MatchingPairs.Scripts
         public void Initialize()
         {
             MatchingPairsStateManager.Instance.Initialise();
-            DeckOfCards.Instance.Initialise();
+            Dealer.Instance.Initialise();
             Score.Instance.Initialise();
-            StartCoroutine(MatchingPairsGridManager.Instance.Initialise(() =>
+            StartCoroutine(GridManager.Instance.Initialise(() =>
             {
                 //dependent on GridManager
                 MatchingPairsAudioManager.Instance.Initialise();

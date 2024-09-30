@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 namespace Base.Scripts.Cards
 {
-    public class DeckOfCards : Singleton<DeckOfCards>
+    public class DeckOfCards : MonoBehaviour
     {
         [SerializeField] private bool allowDuplicateCards;
         [SerializeField] private Card[] cards;

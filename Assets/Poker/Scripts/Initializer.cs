@@ -17,7 +17,7 @@ namespace Poker.Scripts
         public void Initialize()
         {
             SequentialStateManager.Instance.Initialise();
-            DeckOfCards.Instance.Initialise();
+            Dealer.Instance.Initialise();
         }
     }
 }
