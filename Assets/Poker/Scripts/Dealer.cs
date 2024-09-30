@@ -2,6 +2,7 @@
 using Base.Scripts.Cards;
 using pure_unity_methods;
 using Base.Scripts.StateManagement;
+using Poker.Scripts.StateManager;
 using UnityEngine;
 
 namespace Poker.Scripts
@@ -13,7 +14,7 @@ namespace Poker.Scripts
         
         public void DealCards(Action callBack)
         {
-            if (!SequentialStateManager.Instance.IsDealState()) throw new Exception("Attempting to deal cards outside of the deal state.");
+            if (!((PokerStateManager)SequentialStateManager.Instance).IsDealState()) throw new Exception("Attempting to deal cards outside of the deal state.");
             
             ResetHands(() =>
             {
@@ -30,7 +31,7 @@ namespace Poker.Scripts
         
         public void DrawCards(Action callBack)
         {
-            if (!SequentialStateManager.Instance.IsDrawState()) throw new Exception("Attempting to draw cards outside of the deal state.");
+            if (!((PokerStateManager)SequentialStateManager.Instance).IsDrawState()) throw new Exception("Attempting to draw cards outside of the deal state.");
 
             ResetHands(() =>
             {

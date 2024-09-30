@@ -1,6 +1,7 @@
 using Base.Scripts;
 using Base.Scripts.Cards;
 using Base.Scripts.StateManagement;
+using Poker.Scripts.StateManager;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,7 +30,7 @@ namespace Poker.Scripts
 
         private void Hold()
         {
-            if (!SequentialStateManager.Instance.IsHoldState()) return;
+            if (!((PokerStateManager)SequentialStateManager.Instance).IsHoldState()) return;
             
             Held = !Held;
             EnableHeldDisplay(Held);
