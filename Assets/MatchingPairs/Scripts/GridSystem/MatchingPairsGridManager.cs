@@ -2,12 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Base.Scripts;
 using Base.Scripts.Cards;
-using Base.Scripts.pure_unity_methods;
+using pure_unity_methods;
 using Base.Scripts.StateManagement;
 using MatchingPairs.Scripts.StateManagement;
-using Poker;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

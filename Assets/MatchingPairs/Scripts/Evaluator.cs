@@ -1,10 +1,8 @@
-using Base.Scripts;
 using Base.Scripts.Cards;
-using Base.Scripts.pure_unity_methods;
+using pure_unity_methods;
 using Base.Scripts.StateManagement;
 using MatchingPairs.Scripts.GridSystem;
 using MatchingPairs.Scripts.StateManagement;
-using Poker;
 
 namespace MatchingPairs.Scripts
 {

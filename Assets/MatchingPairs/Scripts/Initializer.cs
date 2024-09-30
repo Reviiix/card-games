@@ -1,5 +1,5 @@
 using Base.Scripts.Cards;
-using Base.Scripts.pure_unity_methods;
+using pure_unity_methods;
 using MatchingPairs.Scripts.GridSystem;
 using MatchingPairs.Scripts.ScoreSystem;
 using MatchingPairs.Scripts.StateManagement;

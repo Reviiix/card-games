@@ -1,5 +1,5 @@
 using Base.Scripts.Buttons;
-using Base.Scripts.pure_unity_methods;
+using pure_unity_methods;
 using UnityEngine;
 
 namespace Poker.Scripts.Buttons

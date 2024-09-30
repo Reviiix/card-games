@@ -1,5 +1,5 @@
 ﻿using System;
-using Base.Scripts.pure_unity_methods;
+using pure_unity_methods;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

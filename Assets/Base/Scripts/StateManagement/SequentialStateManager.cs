@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Base.Scripts.pure_unity_methods;
+using pure_unity_methods;
 using Poker.Scripts.StateManager;
 using UnityEngine;
 

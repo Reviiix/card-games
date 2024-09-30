@@ -1,8 +1,7 @@
 using System;
 using System.Collections;
 using Base.Scripts.Cards;
-using Base.Scripts.pure_unity_methods;
-using Poker;
+using pure_unity_methods;
 using UnityEngine;
 using UnityEngine.UI;
 

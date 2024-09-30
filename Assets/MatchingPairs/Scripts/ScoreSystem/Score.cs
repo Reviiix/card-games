@@ -1,6 +1,5 @@
 using System;
-using Base.Scripts;
-using Base.Scripts.pure_unity_methods;
+using pure_unity_methods;
 using Base.Scripts.StateManagement;
 using MatchingPairs.Scripts.StateManagement;
 

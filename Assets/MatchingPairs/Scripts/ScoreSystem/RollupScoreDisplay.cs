@@ -1,4 +1,4 @@
-using Base.Scripts.pure_unity_methods.Effects;
+using pure_unity_methods.Effects;
 using TMPro;
 using UnityEngine;
 
