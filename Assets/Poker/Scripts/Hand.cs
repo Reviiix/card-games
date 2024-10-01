@@ -33,7 +33,7 @@ namespace Poker.Scripts
             winDisplay.ShowWin(evaluation);
             callBack();
         }
-        
+
         public void ResetCards(Action callBack, bool ignoreHeld = false)
         {
             StartCoroutine(ResetCardsRoutine(callBack, ignoreHeld));
