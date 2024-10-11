@@ -1,11 +1,11 @@
 using System;
-using pure_unity_methods;
 using Base.Scripts.StateManagement;
 using MatchingPairs.Scripts.StateManagement;
+using pure_unity_methods;
 
 namespace MatchingPairs.Scripts.ScoreSystem
 {
-    public class Score : Singleton<Score>
+    public class MatchingPairsScoreManager : Singleton<MatchingPairsScoreManager>
     {
         public static Action<ScoreInformation> OnScoreUpdate;
         private ScoreInformation score = new();

@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Base.Scripts.Cards;
-using pure_unity_methods;
 using Base.Scripts.StateManagement;
 using MatchingPairs.Scripts.StateManagement;
+using pure_unity_methods;
 using UnityEngine;
 
 namespace MatchingPairs.Scripts.GridSystem
@@ -170,7 +168,7 @@ namespace MatchingPairs.Scripts.GridSystem
         private void SetGridItemValues()
         {
             var amountOfItems = gridItems.Count;
-            var cardValues = Dealer.Instance.TakeCardsFromDeck(amountOfItems);
+            var cardValues = MatchingPairsDealer.Instance.TakeCardsFromDeck(amountOfItems);
             for (var i = 0; i < amountOfItems; i++)
             {
                 gridItems[i].SetValue(cardValues[i]);

@@ -104,7 +104,7 @@ namespace MatchingPairs.Scripts.GridSystem
             }
             Revealed = false;
             Active = true;
-            display.sprite = Dealer.Instance.GetCardBack();
+            display.sprite = MatchingPairsDealer.Instance.GetCardBack();
         }
     }
 }

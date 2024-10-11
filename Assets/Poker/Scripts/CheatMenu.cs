@@ -21,7 +21,7 @@ namespace Poker.Scripts
         [SerializeField] private HorizontalLayoutGroup handLayoutGroup;
         [SerializeField] private Canvas cheatScreen;
         [SerializeField] private Button cheatButton;
-        private CardSlot[] _cheatCards;
+        private PokerCardDisplay[] _cheatCards;
         public static bool CheatCardsAvailable => _cheatCardInHandIndex > 0;
         #region CheatCardInHandIndex
         private static int _cheatCardInHandIndex;
@@ -74,7 +74,7 @@ namespace Poker.Scripts
 
         private void DeckCardSelected(int deckIndex)
         {
-            _cheatCards[CheatCardInHandIndex].SetNewCard(Dealer.Instance.TakeSpecificCardFromDeck(deckIndex));
+            _cheatCards[CheatCardInHandIndex].SetNewCard(PokerDealer.Instance.TakeSpecificCardFromDeck(deckIndex));
         }
 
         #region Create dynamic cheat menu based of deck and hand classes
@@ -87,7 +87,7 @@ namespace Poker.Scripts
         
         private void CreateDeck()
         {
-            var amountOfCardsInDeck = Dealer.Instance.GetAmountOfCardsInDeck();
+            var amountOfCardsInDeck = PokerDealer.Instance.GetAmountOfCardsInDeck();
             for (var i = 0; i < amountOfCardsInDeck; i++)
             {
                 CreateDeckCard(i);
@@ -98,13 +98,13 @@ namespace Poker.Scripts
         {
             var cheatCard = Instantiate(cheatCardPrefab, deckLayoutGroup.transform);
             
-            cheatCard.GetComponent<Image>().sprite = Dealer.Instance.TakeSpecificCardFromDeck(deckIndex).GetCardSprite();
+            cheatCard.GetComponent<Image>().sprite = PokerDealer.Instance.TakeSpecificCardFromDeck(deckIndex).GetCardSprite();
             cheatCard.GetComponent<Button>().onClick.AddListener(()=>DeckCardSelected(deckIndex));
         }
         
         private void CreateHand()
         {
-            _cheatCards = new CardSlot[Dealer.Instance.GetAmountOfCardsInHand(0)];
+            _cheatCards = new PokerCardDisplay[PokerDealer.Instance.GetAmountOfCardsInHand(0)];
             for (var i = 0; i < _cheatCards.Length; i++)
             {
                 CreateHandCard(i);
@@ -117,7 +117,7 @@ namespace Poker.Scripts
             var cheatCardImage = cheatCard.GetComponent<Image>();
 
             //_cheatCards[handIndex].cardImage = cheatCardImage;
-            cheatCardImage.sprite = Dealer.Instance.GetCardBack();
+            cheatCardImage.sprite = PokerDealer.Instance.GetCardBack();
             
             cheatCard.GetComponent<Button>().onClick.AddListener(() => HandCardSelected(handIndex));
 

@@ -1,12 +1,13 @@
 using System;
 using System.Linq;
+using Base.Scripts;
 using Base.Scripts.Cards;
 using pure_unity_methods;
 using UnityEngine;
 
 namespace MatchingPairs.Scripts
 {
-    public class Dealer : Singleton<Dealer>, IDealer
+    public class MatchingPairsDealer : Singleton<MatchingPairsDealer>, IDealer
     {
         [SerializeField] private DeckOfCards deck;
         

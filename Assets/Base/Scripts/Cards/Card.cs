@@ -44,6 +44,11 @@ namespace Base.Scripts.Cards
             InPlay = false;
         }
         
+        public bool IsJoker()
+        {
+            return rank == Rank.Joker;
+        }
+        
     }
     
     public enum Suit

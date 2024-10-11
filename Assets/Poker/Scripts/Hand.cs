@@ -11,7 +11,7 @@ namespace Poker.Scripts
         private static readonly WaitForSeconds TimeBetweenDealingCards = new WaitForSeconds(0.3f);
         private Evaluation evaluation;
         [SerializeField] private WinDisplay winDisplay;
-        [SerializeField] private CardSlot[] cardsSlots;
+        [SerializeField] private PokerCardDisplay[] cardsSlots;
         public int AmountOfCards => cardsSlots.Length;
 
         public void Deal(Card[] cards, Action callBack)

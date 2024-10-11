@@ -13,12 +13,12 @@ namespace MatchingPairs.Scripts.ScoreSystem
 
         private void OnEnable()
         {
-            Score.OnScoreUpdate += OnScoreUpdate;
+            MatchingPairsScoreManager.OnScoreUpdate += OnScoreUpdate;
         }
 
         private void OnDisable()
         {
-            Score.OnScoreUpdate -= OnScoreUpdate;
+            MatchingPairsScoreManager.OnScoreUpdate -= OnScoreUpdate;
         }
 
         private void OnScoreUpdate(ScoreInformation score)

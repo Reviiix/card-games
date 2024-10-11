@@ -1,5 +1,4 @@
 ﻿using System;
-using pure_unity_methods;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -52,6 +51,18 @@ namespace Base.Scripts.Cards
             Debugging.DisplayDebugMessage("Card forcibly taken from deck, duplicate cards are now a possibility.");
             return cards[index];
         }
-    }
 
+        public int GetAmountOfCardsInPlay()
+        {
+            var count = 0;
+            foreach (var card in cards)
+            {
+                if (card.InPlay)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+    }
 }

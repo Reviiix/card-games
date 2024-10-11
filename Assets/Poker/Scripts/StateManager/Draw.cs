@@ -8,8 +8,8 @@ namespace Poker.Scripts.StateManager
     {
         public override void OnStateEnter(Action callBack)
         {
-            ButtonManager.Instance.EnableAllButtons(false);
-            Dealer.Instance.DrawCards(callBack);
+            PokerButtonManager.Instance.EnableAllButtons(false);
+            PokerDealer.Instance.DrawCards(callBack);
         }
     }
 }

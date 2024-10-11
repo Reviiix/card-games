@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Poker.Scripts.Buttons
 {
-    public class ButtonManager : Singleton<ButtonManager>
+    public class PokerButtonManager : Singleton<PokerButtonManager>
     {
         public PlayGameButton Play { get; private set; }
         [SerializeField] private GameButton[] buttons;

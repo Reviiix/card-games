@@ -1,13 +1,14 @@
 ﻿using System;
+using Base.Scripts;
 using Base.Scripts.Cards;
-using pure_unity_methods;
 using Base.Scripts.StateManagement;
 using Poker.Scripts.StateManager;
+using pure_unity_methods;
 using UnityEngine;
 
 namespace Poker.Scripts
 {
-    public class Dealer : Singleton<Dealer>, IDealer
+    public class PokerDealer : Singleton<PokerDealer>, IDealer
     {
         [SerializeField] private DeckOfCards deck;
         [SerializeField] private Hand[] hands;
