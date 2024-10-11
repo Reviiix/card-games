@@ -21,17 +21,26 @@ namespace Poker.Scripts
 
         private IEnumerator DealRoutine(IReadOnlyList<Card> cards, Action callBack)
         {
-            evaluation = Evaluator.Evaluate(cards);
-            
             for (var i = 0; i < cards.Count; i++)
             {
                 if (cardsSlots[i].Held) continue;
                 cardsSlots[i].SetNewCard(cards[i]);
                 yield return TimeBetweenDealingCards;
             }
-
+            evaluation = Evaluator.Evaluate(GetFinalHand());
             winDisplay.ShowWin(evaluation);
             callBack();
+        }
+
+        private IEnumerable<Card> GetFinalHand()
+        {
+            var cards = new Card[cardsSlots.Length];
+            for (var i = 0; i < cardsSlots.Length; i++)
+            {
+                cards[i] = cardsSlots[i].Card;
+            }
+
+            return cards;
         }
 
         public void ResetCards(Action callBack, bool ignoreHeld = false)
