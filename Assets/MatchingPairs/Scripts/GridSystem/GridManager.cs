@@ -5,6 +5,7 @@ using Base.Scripts.StateManagement;
 using MatchingPairs.Scripts.StateManagement;
 using pure_unity_methods;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MatchingPairs.Scripts.GridSystem
 {
@@ -21,7 +22,7 @@ namespace MatchingPairs.Scripts.GridSystem
         [SerializeField] private Transform gridArea;
         [SerializeField] private GameObject gridPrefab;
         [SerializeField] private GameObject rowPrefab;
-        [SerializeField] private GameObject cardPrefab;
+        [FormerlySerializedAs("cardPrefab")] [SerializeField] private GameObject itemPrefab;
         [SerializeField] [Range(1, 4)] public int amountOfRows = 3; //Setting range to preserve readability of cards.
         [SerializeField] [Range(2, 8)] public int amountOfItemsPerRow = 6;
 
@@ -78,20 +79,20 @@ namespace MatchingPairs.Scripts.GridSystem
                 {
                     if (Application.isPlaying)
                     {
-                        var card = Instantiate(cardPrefab, row.transform).GetComponent<GridItem>();
-                        gridItems.Add(card);
-                        card.Initialise(OnGridItemClick);
+                        var gridItem = Instantiate(itemPrefab, row.transform).GetComponent<GridItem>();
+                        gridItems.Add(gridItem);
+                        gridItem.Initialise(OnGridItemClick);
                     }
                     else
                     {
-                        Instantiate(cardPrefab, row.transform);
+                        Instantiate(itemPrefab, row.transform);
                     }
                 }
                 row.ShuffleChildren();
             }
             if (!MathUtilities.IsEvenNumber(gridItems.Count))
             {
-                Debug.LogWarning($"Having an Odd amount of {nameof(gridItems)} means not every card has a match!");
+                Debug.LogWarning($"Having an Odd amount of {nameof(gridItems)} means not every item has a match!");
             }
             completeCallback?.Invoke();
         }
